@@ -1,5 +1,8 @@
-# SatVLALab 演示系统 conda 环境清单
-# 用法: conda env create -f environment.yaml   （等价于 setup.sh 第 3~4 步）
+# SatVLALab 演示系统 conda 环境清单（自包含单文件）
+#
+# 用法:  conda env create -f environment.yaml
+#         conda activate satvla
+#         bash download_weights.sh     # 下载模型权重
 #
 # 注意:
 # 1) torch 2.0.1+cu118 的 CUDA 版本仅有 linux-x86_64 / win-x86_64 官方 wheel。
@@ -7,6 +10,7 @@
 #    并在 multiagent/tools/GroundingDINO 下重新编译 _C.so:
 #       cd multiagent/tools/GroundingDINO && pip install -e .
 # 2) 模型权重不在本仓库，需运行 bash download_weights.sh 联网下载。
+# 3) VLM 模型需另装 Ollama 并 ollama pull qwen3.5:9b。
 name: satvla
 channels:
   - defaults
@@ -15,6 +19,37 @@ dependencies:
   - pip
   - pip:
       - --extra-index-url https://download.pytorch.org/whl/cu118
+
+      # ── PyTorch（CUDA 11.8，与预编译 _C.so 匹配，勿改版本）──
       - torch==2.0.1+cu118
       - torchvision==0.15.2+cu118
-      - -r requirements.txt
+
+      # ── GroundingDINO 依赖 ──
+      - transformers==4.30.2
+      - huggingface-hub==0.16.4
+      - tokenizers==0.13.3
+      - timm>=0.6.13
+      - supervision>=0.27,<0.28
+
+      # ── 图像处理与工具 ──
+      - basicsr==1.4.2
+      - opencv-python>=4.8
+      - Pillow>=9.0
+      - numpy==1.26.4
+      - scikit-image>=0.20
+      - natsort
+      - tqdm
+
+      # ── 推理链路直接 import、必须显式安装（勿删）──
+      - einops>=0.8.0        # Restormer 模型架构 (restormer_arch.py)
+      - matplotlib>=3.7      # GroundingDINO 检测结果可视化 (run_detect.py)
+      - termcolor>=2.0       # groundingdino 日志着色 (util/logger.py)
+      - yapf>=0.40           # GroundingDINO 配置解析 (util/slconfig.py)
+      - addict>=2.4          # GroundingDINO 配置结构 (util/slconfig.py)
+
+      # ── 桥接服务 ──
+      - fastapi>=0.100
+      - uvicorn[standard]>=0.22
+
+      # ── 通用 ──
+      - requests
