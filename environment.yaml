@@ -1,0 +1,20 @@
+# SatVLALab 演示系统 conda 环境清单
+# 用法: conda env create -f environment.yaml   （等价于 setup.sh 第 3~4 步）
+#
+# 注意:
+# 1) torch 2.0.1+cu118 的 CUDA 版本仅有 linux-x86_64 / win-x86_64 官方 wheel。
+#    ARM 架构（Apple Silicon / 骁龙）无法直接安装，需换用对应平台的 torch 版本，
+#    并在 multiagent/tools/GroundingDINO 下重新编译 _C.so:
+#       cd multiagent/tools/GroundingDINO && pip install -e .
+# 2) 模型权重不在本仓库，需运行 bash download_weights.sh 联网下载。
+name: satvla
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      - --extra-index-url https://download.pytorch.org/whl/cu118
+      - torch==2.0.1+cu118
+      - torchvision==0.15.2+cu118
+      - -r requirements.txt

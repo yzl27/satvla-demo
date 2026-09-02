@@ -1,0 +1,36 @@
+# ── 运行时生成物 ──────────────────────────
+multiagent/workspace/
+multiagent/logs/
+logs/
+*.log
+
+# ── 模型权重与环境（由脚本下载/创建） ────
+*.pth
+*.pt
+multiagent/tools/*/weights/*
+!multiagent/tools/*/weights/README.md
+runtime-env/
+hf-cache/
+
+# ── Python ───────────────────────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.so.*
+.pytest_cache/
+.ipynb_checkpoints/
+
+# ── 前端 ─────────────────────────────────
+frontend-demo/node_modules/
+frontend-demo/dist/
+
+# ── 敏感配置 ─────────────────────────────
+.env
+*.env.local
+api_keys.json
+config_private*.py
+
+# ── IDE / 系统 ───────────────────────────
+.vscode/
+.idea/
+.DS_Store

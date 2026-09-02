@@ -1,0 +1,36 @@
+# ══════════════════════════════════════════════════
+# SatVLALab 前端演示 — 精简版依赖清单
+# 环境要求: Python 3.10（与预编译的 GroundingDINO
+#          CUDA 扩展 _C.cpython-310 匹配，勿换版本）
+# ══════════════════════════════════════════════════
+
+# ── PyTorch（CUDA 11.8 版本，与预编译 _C.so 匹配，勿改）──
+--extra-index-url https://download.pytorch.org/whl/cu118
+torch==2.0.1+cu118
+torchvision==0.15.2+cu118
+
+# ── GroundingDINO 依赖（版本锁定，与代码兼容）──
+transformers==4.30.2
+huggingface-hub==0.16.4
+tokenizers==0.13.3
+timm>=0.6.13
+supervision>=0.27,<0.28
+
+# ── 图像处理与工具 ──
+basicsr==1.4.2
+opencv-python>=4.8
+Pillow>=9.0
+numpy==1.26.4
+scikit-image>=0.20
+natsort
+tqdm
+
+# ── 桥接服务 ──
+fastapi>=0.100
+uvicorn[standard]>=0.22
+
+# ── 通用 ──
+requests
+
+# 提示：国内网络 pip 慢时加镜像:
+#   pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
