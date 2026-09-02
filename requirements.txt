@@ -25,6 +25,13 @@ scikit-image>=0.20
 natsort
 tqdm
 
+# ── 推理链路直接 import、必须显式安装（勿删）──
+einops>=0.8.0        # Restormer 模型架构 (restormer_arch.py)
+matplotlib>=3.7      # GroundingDINO 检测结果可视化 (run_detect.py)
+termcolor>=2.0       # groundingdino 日志着色 (util/logger.py)
+yapf>=0.40           # GroundingDINO 配置解析 (util/slconfig.py)
+addict>=2.4          # GroundingDINO 配置结构 (util/slconfig.py)
+
 # ── 桥接服务 ──
 fastapi>=0.100
 uvicorn[standard]>=0.22
